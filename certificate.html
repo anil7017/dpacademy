@@ -14,7 +14,9 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -44,9 +46,10 @@
     <div class="container d-flex align-items-center">
       <h1 class="logo me-auto">
         <a href="index.html" class="logo me-auto"><img src="assets/img/logo.PNG" alt="" width="300" height="200"></a>
-        <!--<a href="index.html">DP Academy<span></span></a>--></h1>
+        <!--<a href="index.html">DP Academy<span></span></a>-->
+      </h1>
       <!-- Uncomment below if you prefer to use an image logo -->
-       
+
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
@@ -78,7 +81,7 @@
   </header><!-- End Header -->
 
   <main id="main">
-  
+
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="d-flex align-items-center contact">
       <div class="container" data-aos="fade-up">
@@ -87,7 +90,7 @@
           <br>
           <h2>Certificate</h2>
         </div>
-        <div class="row col-lg-6" >
+        <!-- <div class="row col-lg-6" >
           <div class="form-group">
           <input type="text" class="form-control" id="certNumber" placeholder="Enter Certificate Number" required>
           <div class="text-center">
@@ -97,6 +100,15 @@
           <div id="cert-image">
 
           </div>
+        </div> -->
+        <div class="input-group mb-3">
+          <input type="text" id="certNumber" placeholder="Enter Certificate Number" class="form-control col-lg-6">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" id="submit-button" type="button">Submit</button>
+          </div>
+        </div>
+        <div id="cert-image" class="h-80 row align-items-center">
+          <img id="doc-image-url" alt="" class="img-fluid">
         </div>
 
         <!-- <div class="row " data-aos="fade-up" data-aos-delay="100">
@@ -135,9 +147,10 @@
   <!-- End #main -->
 
   <!-- ======= Footer ======= -->
- 
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/aos/aos.js"></script>
@@ -152,17 +165,32 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-$(document).ready(function(){
-  $("#submit-button").click(function(){
-      var certNumber = $("#certNumber").val();
-      //alert(certNumber);
-      var imageUrl = "http://localhost:9090/api/v1/certificate/"+certNumber
-    $.get("http://localhost:9090/api/v1/certificate/India.png", function(data, status){
-      $('#cert-image').empty()
-      $('#cert-image').prepend('<img id="theImg" src="http://localhost:9090/api/v1/certificate/India.png" />')
+    $(document).ready(function () {
+      $("#submit-button").click(function () {
+        //alert("hiiii");
+        var certNumber = $("#certNumber").val();
+        //alert(certNumber);
+        var imageUrl = "http://localhost:9090/api/v1/certificate/" + certNumber
+        // $.get("http://localhost:9090/api/v1/certificate/India.png", function(data, status){
+        //   $('#cert-image').empty()
+        //   //$('#cert-image').prepend('<img id="theImg" src="http://localhost:9090/api/v1/certificate/India.png" />')
+        //   $('#cert-image').prepend('<img id="theImg" src="'+imageUrl+'" />')
+        //   //$('#image-url').attr('src', "http://localhost:9090/api/v1/certificate/India.png");
+        // });
+        $.ajax({
+          type: "get", url: imageUrl,
+          success: function (data, text) {
+            $('#cert-image').empty()
+            $('#cert-image').prepend('<img id="theImg" src="' + imageUrl + '" />')
+          },
+          error: function (request, status, error) {
+            $('#cert-image').empty()
+            $('#cert-image').prepend('<h2 class="text-center text-danger">Certificate Not Found</h2>');
+            //alert("Certificate Not Available");
+          }
+        });
+      });
     });
-  });
-});
   </script>
 
 </body>
