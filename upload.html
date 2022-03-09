@@ -88,7 +88,7 @@
 
         <div class="section-title">
           <br>
-          <h2>Certificate</h2>
+          <h2>Certificate upload</h2>
         </div>
         <!-- <div class="row col-lg-6" >
           <div class="form-group">
@@ -101,15 +101,18 @@
 
           </div>
         </div> -->
-        <div class="input-group mb-3">
-          <input type="text" id="certNumber" placeholder="Enter Certificate Number" class="form-control col-lg-6">
-          <div class="input-group-prepend">
-            <button class="btn btn-outline-secondary" id="submit-button" type="button">Submit</button>
-          </div>
-        </div>
-        <div id="cert-image" class="h-80 row align-items-center">
-          <img id="doc-image-url" alt="" class="img-fluid">
-        </div>
+        <div class="container mt-5">
+          <h1>Multiple File Upload Demo!</h1>
+          <form class="mt-3" action="http://46.249.53.111:9090/api/v1/certificate/file/multi" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                  <label >Multi</label>
+                  <input type="file" name="files" id="files" multiple>
+              </div>
+              <div class="form-group mt-3">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+          </form>
+      </div>
 
         <!-- <div class="row " data-aos="fade-up" data-aos-delay="100">
           <div class="col-lg-6">
@@ -164,35 +167,7 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <script>
-    $(document).ready(function () {
-      $("#submit-button").click(function () {
-        //alert("hiiii");
-        var certNumber = $("#certNumber").val();
-        //alert(certNumber);
-        var imageUrl = "https://jenkins.tekorero.com:6060/api/v1/certificate/" + certNumber
-        // $.get("http://localhost:9090/api/v1/certificate/India.png", function(data, status){
-        //   $('#cert-image').empty()
-        //   //$('#cert-image').prepend('<img id="theImg" src="http://localhost:9090/api/v1/certificate/India.png" />')
-        //   $('#cert-image').prepend('<img id="theImg" src="'+imageUrl+'" />')
-        //   //$('#image-url').attr('src', "http://localhost:9090/api/v1/certificate/India.png");
-        // });
-        $.ajax({
-          type: "get", url: imageUrl,
-          success: function (data, text) {
-            $('#cert-image').empty()
-            $('#cert-image').prepend('<img id="theImg" src="' + imageUrl + '" />')
-          },
-          error: function (request, status, error) {
-            $('#cert-image').empty()
-            $('#cert-image').prepend('<h2 class="text-center text-danger">Certificate Not Found</h2>');
-            //alert("Certificate Not Available");
-          }
-        });
-      });
-    });
-  </script>
-
+  
 </body>
 
 </html>
